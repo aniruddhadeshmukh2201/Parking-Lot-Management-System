@@ -54,7 +54,27 @@ A **Parking Lot Management System** built to efficiently manage parking slots fo
 
 ## 📂 Project Structure
 
-ParkingLotManagementSystem/ ├── src/ │ ├── main/ │ │ ├── java/ │ │ │ └── com/parkinglot/ │ │ │ ├── ParkingLot.java │ │ │ ├── SlotManager.java │ │ │ ├── Vehicle.java │ │ │ ├── ParkingSlot.java │ │ │ ├── PricingStrategy.java │ │ │ ├── Ticket.java │ │ │ └── enums/ │ │ │ ├── SlotType.java │ │ │ └── VehicleType.java │ └── test/ │ └── java/com/parkinglot/ (Unit tests) ├── README.md └── pom.xml (for Maven users)
+## 📂 Project Structure
+
+- `ParkingLotManagementSystem/`
+  - `src/`
+    - `main/`
+      - `java/`
+        - `com/parkinglot/`
+          - `ParkingLot.java`
+          - `SlotManager.java`
+          - `Vehicle.java`
+          - `ParkingSlot.java`
+          - `PricingStrategy.java`
+          - `Ticket.java`
+          - `enums/`
+            - `SlotType.java`
+            - `VehicleType.java`
+    - `test/`
+      - `java/com/parkinglot/` - (Unit tests)
+  - `README.md`
+  - `pom.xml` - (for Maven users)
+
 
 ---
 
@@ -95,7 +115,7 @@ If you’d like to contribute:
   ```bash 
   git push origin feature/your-feature-name
 
-5. Create a Pull Request: Go to the original repository, click on the "Pull Requests" tab, and submit your request.
+5. Create a Pull Request. Go to the original repository, click on the "Pull Requests" tab, and submit your request.
 
 Please follow the project’s code of conduct and keep pull requests focused on a single feature or improvement. For larger changes, open an issue first to discuss what you would like to change.
 
