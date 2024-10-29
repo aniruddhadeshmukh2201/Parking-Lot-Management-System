@@ -56,24 +56,26 @@ A **Parking Lot Management System** built to efficiently manage parking slots fo
 
 ## 📂 Project Structure
 
-- `ParkingLotManagementSystem/`
-  - `src/`
-    - `main/`
-      - `java/`
-        - `com/parkinglot/`
-          - `ParkingLot.java`
-          - `SlotManager.java`
-          - `Vehicle.java`
-          - `ParkingSlot.java`
-          - `PricingStrategy.java`
-          - `Ticket.java`
-          - `enums/`
-            - `SlotType.java`
-            - `VehicleType.java`
-    - `test/`
-      - `java/com/parkinglot/` - (Unit tests)
-  - `README.md`
-  - `pom.xml` - (for Maven users)
+## 📂 Project Structure
+
+- ParkingLotManagementSystem/
+  - src/
+    - main/
+      - java/
+        - com/parkinglot/
+          - ParkingLot.java
+          - SlotManager.java
+          - Vehicle.java
+          - ParkingSlot.java
+          - PricingStrategy.java
+          - Ticket.java
+          - enums/
+            - SlotType.java
+            - VehicleType.java
+    - test/
+      - java/com/parkinglot/ - (Unit tests)
+  - README.md
+  - pom.xml - (for Maven users)
 
 
 ---
