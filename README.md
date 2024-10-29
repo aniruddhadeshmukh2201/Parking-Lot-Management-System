@@ -110,9 +110,6 @@ If you’d like to contribute:
 
 3. Make your changes: Commit your modifications with descriptive commit messages.
 4. Push your changes
-  ```bash 
-  git push origin feature/your-feature-name
-
 5. Create a Pull Request. Go to the original repository, click on the "Pull Requests" tab, and submit your request.
 
 Please follow the project’s code of conduct and keep pull requests focused on a single feature or improvement. For larger changes, open an issue first to discuss what you would like to change.
