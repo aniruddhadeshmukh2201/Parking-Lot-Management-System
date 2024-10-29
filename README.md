@@ -54,10 +54,6 @@ A **Parking Lot Management System** built to efficiently manage parking slots fo
 
 ## 📂 Project Structure
 
-## 📂 Project Structure
-
-## 📂 Project Structure
-
 - ParkingLotManagementSystem/
   - src/
     - main/
