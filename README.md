@@ -94,7 +94,7 @@ If you’d like to contribute:
 4. Push your changes
 ```bash 
 git push origin feature/your-feature-name
-
+.
 
 5. Create a Pull Request: Go to the original repository, click on the "Pull Requests" tab, and submit your request.
 
