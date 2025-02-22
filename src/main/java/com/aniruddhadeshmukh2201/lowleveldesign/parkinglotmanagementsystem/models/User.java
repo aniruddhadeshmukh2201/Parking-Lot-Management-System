@@ -2,14 +2,18 @@ package com.aniruddhadeshmukh2201.lowleveldesign.parkinglotmanagementsystem.mode
 
 
 import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "Users")
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class User extends BaseModel {
     private String firstName;
     private String lastName;
