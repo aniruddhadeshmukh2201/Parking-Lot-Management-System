@@ -32,9 +32,11 @@ public class UserService implements UserDetailsService{
             throw new IllegalArgumentException("Mobile Number is already in use.");
         }
 
+        String hashedPassword = passwordEncoder.encode(registerDTO.getPassword());
+
         User user = User.builder()
         .email(registerDTO.getEmail())
-        .password(registerDTO.getPassword())
+        .password(hashedPassword)
         .firstName(registerDTO.getFirstName())
         .lastName(registerDTO.getLastName())
         .userRole(registerDTO.getUserRole())
@@ -46,6 +48,7 @@ public class UserService implements UserDetailsService{
 
     public User login(String email, String password) {
         User user = userRepository.findByEmail(email);
+        System.out.println("User: " + user);
         if (user == null) {
             throw new IllegalArgumentException("User not found.");
         }
@@ -59,16 +62,19 @@ public class UserService implements UserDetailsService{
     }
 
 
-    public void deleteUserById(Long userId) {
+    public void deactivateUserById(Long userId) {
         User user = userRepository.findById(userId).orElse(null);
         if (user == null) {
             throw new IllegalArgumentException("User not found.");
         }
-        userRepository.delete(user);
+        user.setDeleted(true);
+        userRepository.save(user); 
     }
 
     public User editUser(Long Id, EditUserDTO editUserDTO) {
+        System.out.println("Id:::::::::::::::" + Id);
         User user  = userRepository.findById(Id).orElse(null);
+        System.out.println("User:::::::::::::::" + user);
         if (user == null) {
             throw new IllegalArgumentException("User not found.");
         }

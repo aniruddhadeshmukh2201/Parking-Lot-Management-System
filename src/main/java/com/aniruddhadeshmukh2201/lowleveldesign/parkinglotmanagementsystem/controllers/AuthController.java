@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/auth")
-public class UserController {
+public class AuthController {
 
     @Autowired
     private UserService userService;
@@ -81,46 +81,29 @@ public class UserController {
     @GetMapping("/logout")
     public ResponseEntity<String> logoutUser(HttpServletRequest request, HttpServletResponse response) {
         try {
-            // Clear the JWT cookie
-            Cookie cookie = new Cookie("token", null);
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
+            // Clear the access token cookie
+            Cookie accessTokenCookie = new Cookie("accessToken", null);
+            accessTokenCookie.setPath("/");
+            accessTokenCookie.setHttpOnly(true);
+            accessTokenCookie.setSecure(true);
+            accessTokenCookie.setMaxAge(0);
+
+            // Clear the refresh token cookie
+            Cookie refreshTokenCookie = new Cookie("refreshToken", null);
+            refreshTokenCookie.setPath("/");
+            refreshTokenCookie.setHttpOnly(true);
+            refreshTokenCookie.setSecure(true);
+            refreshTokenCookie.setMaxAge(0);
+
+            // Add cookies to response to remove them from the browser
+            response.addCookie(accessTokenCookie);
+            response.addCookie(refreshTokenCookie);
 
             return new ResponseEntity<>("Logged out successfully.", HttpStatus.OK);
         } catch (Exception e) {
-            // Log the error (you can use a logger instead of printStackTrace in a real app)
             e.printStackTrace();
             return new ResponseEntity<>("An error occurred while logging out.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
-        try {
-            userService.deleteUserById(userId); // Call the service method to delete the user
-            return new ResponseEntity<>("User deleted successfully.", HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("An error occurred while deleting the user.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PutMapping("/edit/{Id}")
-    public ResponseEntity<User> editUser(@PathVariable Long Id, @RequestBody EditUserDTO editUserDTO) {
-        try {
-            return new ResponseEntity<>(userService.editUser(Id, editUserDTO), HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    // TODO : api to get user details
 
 }

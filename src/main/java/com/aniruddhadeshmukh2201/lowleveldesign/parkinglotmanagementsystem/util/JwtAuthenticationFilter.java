@@ -32,7 +32,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
 
-
         // Skip authentication for public endpoints
         if (requestURI.startsWith("/api/auth/")) {
             filterChain.doFilter(request, response);
@@ -41,25 +40,41 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
         System.out.println("Authorization Header: " + authHeader);
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String jwt = authHeader.substring(7);
-            System.out.println("Extracted JWT: " + jwt);
-            if (jwtTokenUtil.validateToken(jwt)) {
-                String email = jwtTokenUtil.getEmailFromToken(jwt);
-                System.out.println("Authenticated user: " + email);
-                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            } else {
-                System.out.println("Invalid JWT Token");
-            }
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            // Block execution and return 401 Unauthorized
+            System.out.println("Missing or Invalid Authorization Header");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: Missing or invalid Authorization header");
+            response.getWriter().flush();
+            return;
         }
+
+        String jwt = authHeader.substring(7);
+        System.out.println("Extracted JWT: " + jwt);
+
+        if (!jwtTokenUtil.validateToken(jwt)) {
+            System.out.println("Invalid JWT Token");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Unauthorized: Invalid JWT token");
+            response.getWriter().flush();
+            return;
+        }
+
+        String email = jwtTokenUtil.getEmailFromToken(jwt);
+        System.out.println("Authenticated user: " + email);
+
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, userDetails.getAuthorities());
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
         filterChain.doFilter(request, response);
     }
+
 }
