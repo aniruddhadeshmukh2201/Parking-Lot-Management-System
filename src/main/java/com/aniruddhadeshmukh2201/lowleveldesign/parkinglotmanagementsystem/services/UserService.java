@@ -72,15 +72,17 @@ public class UserService implements UserDetailsService{
     }
 
     public User editUser(Long Id, EditUserDTO editUserDTO) {
-        System.out.println("Id:::::::::::::::" + Id);
         User user  = userRepository.findById(Id).orElse(null);
-        System.out.println("User:::::::::::::::" + user);
         if (user == null) {
             throw new IllegalArgumentException("User not found.");
         }
         user.setFirstName(editUserDTO.getFirstName());
         user.setLastName(editUserDTO.getLastName());
         return userRepository.save(user);
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
