@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity(name = "Bookings")
 @Builder
-public class Booking {
+public class Booking extends BaseModel {
 
     //this is for the guy who booked the parking spot
     @ManyToOne

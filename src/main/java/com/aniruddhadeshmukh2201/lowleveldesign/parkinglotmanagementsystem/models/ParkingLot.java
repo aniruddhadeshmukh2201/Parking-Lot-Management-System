@@ -41,9 +41,5 @@ public class ParkingLot extends BaseModel {
     @JoinColumn(name = "user_id", nullable = false) // foreign key column
     private User user;
 
-    // Many-to-many relationship with User
-    @ManyToMany(mappedBy = "parkingLots")
-    @Builder.Default
-    private Set<User> users = new HashSet<>();
 }
 

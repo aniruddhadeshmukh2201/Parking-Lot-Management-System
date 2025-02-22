@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @Entity(name = "CheckIns")
 @Builder
-public class CheckIn {
+public class CheckIn extends BaseModel {
     
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false) // foreign key column
